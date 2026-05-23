@@ -1,0 +1,6 @@
+{
+  "name": "Nexus of Thought",
+  "description": "A minimalistic technical blog for deep dives, research, and technical notes with LaTeX and Obsidian-like features.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
