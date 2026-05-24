@@ -51,15 +51,18 @@ async function startServer() {
   };
 
   // API to list all blog posts
-  app.get("/api/posts", async (req, res) => {
+  app.get(["/api/posts", "/api/posts.json"], async (req, res) => {
     const posts = await getPosts();
     res.json(posts);
   });
 
   // API to get a single post
-  app.get("/api/posts/:slug", async (req, res) => {
+  app.get(["/api/posts/:slug", "/api/posts/:slug.json"], async (req, res) => {
     try {
-      const { slug } = req.params;
+      let { slug } = req.params;
+      if (slug.endsWith(".json")) {
+        slug = slug.slice(0, -5);
+      }
       await getPosts(); // Ensure cache is warm
 
       const post = postDetailsCache[slug];
@@ -89,7 +92,7 @@ async function startServer() {
   });
 
   // Graph endpoint for Obsidian-like graph view
-  app.get("/api/graph", async (req, res) => {
+  app.get(["/api/graph", "/api/graph.json"], async (req, res) => {
     try {
       await getPosts(); // Ensure cache is warm
       
